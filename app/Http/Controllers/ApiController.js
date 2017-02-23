@@ -12,12 +12,12 @@ class ApiController {
   }
 
   // Gets 1 /api/:resource/:id
-* show (request, response) {
-  const model = this.resource(request.param('resource'))
-  const query = model.query().where({ id: request.param('id') })
-  const result = yield query.first()
-  response.json(result)
-}
+  * show (request, response) {
+    const model = this.resource(request.param('resource'))
+    const query = model.query().where({ id: request.param('id') })
+    const result = yield query.first()
+    response.json(result)
+  }
 
   //Posts a new entity to a resource /api/:resource
   * store(request,response){
@@ -32,9 +32,7 @@ class ApiController {
     const model = this.resource(request.param('resource'))
     const data = JSON.parse(request.input('model'))
     const instance = yield model.find(request.param('id'))
-    console.log("the data", data, "the instance", instance)
     Object.keys(instance.attributes).map((f) => {
-      console.log("the f", f, "instance f", instance[f], "the data f", data[f])
       instance[f] = data[f]
     })
     const result = yield instance.save()
