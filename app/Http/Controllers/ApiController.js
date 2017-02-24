@@ -22,7 +22,8 @@ class ApiController {
   //Posts a new entity to a resource /api/:resource
   * store(request,response){
     const model = this.resource(request.param('resource'))
-    const data = JSON.parse(request.input('model'))
+    const data = JSON.parse(request.input('model')) //with JSON.stringify or postman
+    // const data = request.input('model') //with ajax key 'model' to literal json
     const result = yield model.create(data)
     response.json(result)
   }
@@ -30,7 +31,8 @@ class ApiController {
   // update an entity /api/:resource/:id
   * update (request, response) {
     const model = this.resource(request.param('resource'))
-    const data = JSON.parse(request.input('model'))
+    const data = JSON.parse(request.input('model')) //with JSON.stringify or postman
+    // const data = request.input('model') //with ajax key 'model' to literal json
     const instance = yield model.find(request.param('id'))
     Object.keys(instance.attributes).map((f) => {
       instance[f] = data[f]
